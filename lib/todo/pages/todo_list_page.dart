@@ -68,7 +68,7 @@ class _TodoListPageState extends State<TodoListPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final Todo todo = await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => TodoCreatePage()));
+              .push(MaterialPageRoute(builder: (context) => CreateTodoPage()));
           _addTodo(todo);
         },
         tooltip: 'Add Todo',
