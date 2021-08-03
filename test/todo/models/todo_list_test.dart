@@ -31,9 +31,9 @@ void main() {
         Todo('test2', Icons.minimize),
         Todo('test3', Icons.document_scanner),
       ]);
-      final addedTodoList = todoList.add(Todo('test4', Icons.face));
-      expect(addedTodoList.items[3].title, 'test4');
-      expect(addedTodoList.items[3].icon, Icons.face);
+      todoList.add(Todo('test4', Icons.face));
+      expect(todoList.items[3].title, 'test4');
+      expect(todoList.items[3].icon, Icons.face);
     });
 
     test('TodoList can remove Todo in list', () {
@@ -42,9 +42,9 @@ void main() {
         Todo('test2', Icons.minimize),
         Todo('test3', Icons.document_scanner),
       ]);
-      final addedTodoList = todoList.removeAt(0);
-      expect(addedTodoList.items[0].title, 'test2');
-      expect(addedTodoList.items[0].icon, Icons.minimize);
+      todoList.removeAt(0);
+      expect(todoList.items[0].title, 'test2');
+      expect(todoList.items[0].icon, Icons.minimize);
     });
   });
 }
