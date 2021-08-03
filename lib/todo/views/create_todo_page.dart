@@ -28,34 +28,34 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
         title: const Text('やること作成'),
       ),
       body: Container(
-          padding: EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(40.0),
           child: Center(
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Todoタイトル',
                   ),
                   onChanged: (String text) => _title = text),
               Container(
-                padding: EdgeInsets.only(top: 20.0, bottom: 30.0),
+                padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _icon != null
                         ? Icon(_icon, size: 45.0)
-                        : Text('アイコンを選んでください'),
+                        : const Text('アイコンを選んでください'),
                     ElevatedButton(
-                      child: Text('アイコンを選択'),
+                      child: const Text('アイコンを選択'),
                       onPressed: () => _pickIcon(),
                     ),
                   ],
                 ),
               ),
-              if (_isError) Text('全ての項目を設定してください'),
+              if (_isError) const Text('全ての項目を設定してください'),
               ElevatedButton(
-                child: Text('Add'),
+                child: const Text('Add'),
                 onPressed: () {
                   if (_title == '' || _icon == null) {
                     setState(() => _isError = true);
