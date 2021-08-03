@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/todo.dart';
+import '../models/todo_list.dart';
 import 'create_todo_page.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -9,10 +10,10 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  List<Todo> _todoItems = [
+  TodoList _todoItems = TodoList([
     Todo('牛乳を買う', Icons.description),
     Todo('物件探す', Icons.local_grocery_store),
-  ];
+  ]);
 
   void _addTodo(Todo todo) {
     setState(() => _todoItems.add(todo));
@@ -29,7 +30,7 @@ class _TodoListPageState extends State<TodoListPage> {
         title: Text('やること'),
       ),
       body: ListView.builder(
-        itemCount: _todoItems.length,
+        itemCount: _todoItems.items.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: Container(
@@ -38,16 +39,16 @@ class _TodoListPageState extends State<TodoListPage> {
               ),
               child: ListTile(
                 leading: Icon(
-                  _todoItems[index].icon,
+                  _todoItems.items[index].icon,
                   size: 35.0,
                 ),
-                title: Text(_todoItems[index].title),
+                title: Text(_todoItems.items[index].title),
                 trailing: IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(_todoItems[index].title),
+                      title: Text(_todoItems.items[index].title),
                       actions: [
                         IconButton(
                           icon: Icon(Icons.delete),
