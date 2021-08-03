@@ -12,7 +12,7 @@ void main() {
         Todo('test2', Icons.minimize),
         Todo('test3', Icons.document_scanner),
       ]);
-      expect(todoList.todoItems.length, 3);
+      expect(todoList.items.length, 3);
     });
 
     test('TodoList should include Todo', () {
@@ -21,8 +21,8 @@ void main() {
         Todo('test2', Icons.minimize),
         Todo('test3', Icons.document_scanner),
       ]);
-      expect(todoList.todoItems[0].title, 'test1');
-      expect(todoList.todoItems[0].icon, Icons.add);
+      expect(todoList.items[0].title, 'test1');
+      expect(todoList.items[0].icon, Icons.add);
     });
 
     test('TodoList can add Todo in list', () {
@@ -32,8 +32,8 @@ void main() {
         Todo('test3', Icons.document_scanner),
       ]);
       final addedTodoList = todoList.add(Todo('test4', Icons.face));
-      expect(addedTodoList.todoItems[3].title, 'test4');
-      expect(addedTodoList.todoItems[3].icon, Icons.face);
+      expect(addedTodoList.items[3].title, 'test4');
+      expect(addedTodoList.items[3].icon, Icons.face);
     });
 
     test('TodoList can remove Todo in list', () {
@@ -43,8 +43,8 @@ void main() {
         Todo('test3', Icons.document_scanner),
       ]);
       final addedTodoList = todoList.removeAt(0);
-      expect(addedTodoList.todoItems[0].title, 'test2');
-      expect(addedTodoList.todoItems[0].icon, Icons.minimize);
+      expect(addedTodoList.items[0].title, 'test2');
+      expect(addedTodoList.items[0].icon, Icons.minimize);
     });
   });
 }

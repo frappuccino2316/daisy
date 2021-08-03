@@ -1,19 +1,19 @@
 import 'package:daisy/todo/models/todo.dart';
 
 class TodoList {
-  List<Todo> todoItems;
+  List<Todo> items;
 
-  TodoList(this.todoItems);
+  TodoList(this.items);
 
   TodoList add(Todo todo) {
-    TodoList todoList = TodoList(this.todoItems);
-    todoList.todoItems.add(todo);
+    TodoList todoList = TodoList(this.items);
+    todoList.items.add(todo);
     return todoList;
   }
 
   TodoList removeAt(int index) {
-    TodoList todoList = TodoList(this.todoItems);
-    todoList.todoItems.removeAt(index);
+    TodoList todoList = TodoList(this.items);
+    todoList.items.removeAt(index);
     return todoList;
   }
 }
