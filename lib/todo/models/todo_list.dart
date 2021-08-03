@@ -6,10 +6,10 @@ class TodoList {
   TodoList(this.items);
 
   void add(Todo todo) {
-    this.items.add(todo);
+    items.add(todo);
   }
 
   void removeAt(int index) {
-    this.items.removeAt(index);
+    items.removeAt(index);
   }
 }
