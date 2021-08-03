@@ -7,13 +7,13 @@ class TodoList {
 
   TodoList add(Todo todo) {
     TodoList todoList = TodoList(this.todoItems);
-    todoList.add(todo);
+    todoList.todoItems.add(todo);
     return todoList;
   }
 
   TodoList removeAt(int index) {
     TodoList todoList = TodoList(this.todoItems);
-    todoList.removeAt(index);
+    todoList.todoItems.removeAt(index);
     return todoList;
   }
 }
