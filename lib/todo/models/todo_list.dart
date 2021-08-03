@@ -5,11 +5,15 @@ class TodoList {
 
   TodoList(this.todoItems);
 
-  void add(Todo todo) {
-    this.todoItems.add(todo);
+  TodoList add(Todo todo) {
+    TodoList todoList = TodoList(this.todoItems);
+    todoList.add(todo);
+    return todoList;
   }
 
-  void removeAt(int index) {
-    this.todoItems.removeAt(index);
+  TodoList removeAt(int index) {
+    TodoList todoList = TodoList(this.todoItems);
+    todoList.removeAt(index);
+    return todoList;
   }
 }
