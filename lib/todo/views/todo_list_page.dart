@@ -10,7 +10,7 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  TodoList _todoItems = TodoList([
+  final _todoItems = TodoList([
     Todo('牛乳を買う', Icons.description),
     Todo('物件探す', Icons.local_grocery_store),
   ]);
@@ -27,7 +27,7 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('やること'),
+        title: const Text('やること'),
       ),
       body: ListView.builder(
         itemCount: _todoItems.items.length,
@@ -44,14 +44,14 @@ class _TodoListPageState extends State<TodoListPage> {
                 ),
                 title: Text(_todoItems.items[index].title),
                 trailing: IconButton(
-                  icon: Icon(Icons.more_vert),
+                  icon: const Icon(Icons.more_vert),
                   onPressed: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text(_todoItems.items[index].title),
                       actions: [
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: () {
                             _deleteTodo(index);
@@ -74,7 +74,7 @@ class _TodoListPageState extends State<TodoListPage> {
           if (todo != null) _addTodo(todo);
         },
         tooltip: 'Add Todo',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
