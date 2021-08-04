@@ -11,8 +11,9 @@ class TodoListPage extends StatefulWidget {
 
 class _TodoListPageState extends State<TodoListPage> {
   final _todoItems = TodoList([
-    Todo('牛乳を買う', Icons.description),
-    Todo('物件探す', Icons.local_grocery_store),
+    Todo('牛乳を買う', Icons.description, DateTime.parse('1996-02-15 20:18:04Z')),
+    Todo('物件探す', Icons.local_grocery_store,
+        DateTime.parse('1994-04-14 13:00:04Z')),
   ]);
 
   void _addTodo(Todo todo) {
@@ -43,6 +44,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   size: 35.0,
                 ),
                 title: Text(_todoItems.items[index].title),
+                subtitle: Text(_todoItems.items[index].toStringDeadline()),
                 trailing: IconButton(
                   icon: const Icon(Icons.more_vert),
                   onPressed: () => showDialog(
