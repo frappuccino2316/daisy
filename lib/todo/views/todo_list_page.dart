@@ -44,6 +44,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   size: 35.0,
                 ),
                 title: Text(_todoItems.items[index].title),
+                subtitle: Text(_todoItems.items[index].toStringDeadline()),
                 trailing: IconButton(
                   icon: const Icon(Icons.more_vert),
                   onPressed: () => showDialog(
