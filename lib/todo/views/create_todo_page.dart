@@ -55,7 +55,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   ),
                   onChanged: (String text) => _title = text),
               Container(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
+                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -74,7 +74,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(_dateTime.toString()),
+                    Text(DateFormat.yMMMd('ja').format(_dateTime)),
                     ElevatedButton(
                       child: const Text('期限を選択'),
                       onPressed: () => _pickDate(),
