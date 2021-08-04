@@ -5,14 +5,10 @@ import 'package:daisy/todo/models/todo.dart';
 
 void main() {
   group('Todo', () {
-    test('Todo title should match argument', () {
-      final todo = Todo('test1', Icons.add, DateTime.now());
-      expect(todo.title, 'test1');
-    });
-
-    test('Todo icon should match argument', () {
-      final todo = Todo('test1', Icons.add, DateTime.now());
-      expect(todo.icon, Icons.add);
+    test('Todo should return String deadline', () {
+      Todo todo =
+          Todo('test1', Icons.add, DateTime.parse('1996-02-15 20:18:04Z'));
+      expect(todo.toStringDeadline(), '1996年2月15日');
     });
   });
 }
