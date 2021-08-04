@@ -60,7 +60,8 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   if (_title == '' || _icon == null) {
                     setState(() => _isError = true);
                   } else {
-                    Navigator.pop(context, Todo(_title, _icon!));
+                    Navigator.pop(
+                        context, Todo(_title, _icon!, DateTime.now()));
                   }
                 },
               ),
