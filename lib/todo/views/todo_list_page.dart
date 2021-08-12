@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/todo.dart';
-import '../models/todo_list.dart';
 import 'create_todo_page.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -10,18 +10,7 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final _todoItems = TodoList([
-    Todo('牛乳を買う', DateTime.parse('1996-02-15 20:18:04Z')),
-    Todo('物件探す', DateTime.parse('1994-04-14 13:00:04Z')),
-  ]);
-
-  void _addTodo(Todo todo) {
-    setState(() => _todoItems.add(todo));
-  }
-
-  void _deleteTodo(int index) {
-    setState(() => _todoItems.removeAt(index));
-  }
+  final _todoBox = Hive.box('todo');
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +19,7 @@ class _TodoListPageState extends State<TodoListPage> {
         title: const Text('やること'),
       ),
       body: ListView.builder(
-        itemCount: _todoItems.items.length,
+        itemCount: _todoBox.values.toList().length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: Container(
@@ -38,20 +27,23 @@ class _TodoListPageState extends State<TodoListPage> {
                 border: Border.all(width: 1.0, color: Colors.black),
               ),
               child: ListTile(
-                title: Text(_todoItems.items[index].title),
-                subtitle: Text(_todoItems.items[index].toStringDeadline()),
+                title: Text(_todoBox.values.toList()[index].title),
+                subtitle:
+                    Text(_todoBox.values.toList()[index].toStringDeadline()),
                 trailing: IconButton(
                   icon: const Icon(Icons.more_vert),
                   onPressed: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(_todoItems.items[index].title),
+                      title: Text(_todoBox.values.toList()[index].title),
                       actions: [
                         IconButton(
                           icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: () {
-                            _deleteTodo(index);
+                            // _deleteTodo(index);
+                            _todoBox.deleteAt(index);
+                            setState(() {});
                             Navigator.pop(context);
                           },
                         ),
@@ -68,7 +60,10 @@ class _TodoListPageState extends State<TodoListPage> {
         onPressed: () async {
           final Todo? todo = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => CreateTodoPage()));
-          if (todo != null) _addTodo(todo);
+          if (todo != null) {
+            _todoBox.add(todo);
+            setState(() {});
+          }
         },
         tooltip: 'Add Todo',
         child: const Icon(Icons.add),
