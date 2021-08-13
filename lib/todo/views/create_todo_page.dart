@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../models/todo.dart';
 
@@ -30,6 +31,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return Scaffold(
       appBar: AppBar(
         title: const Text('やること作成'),
