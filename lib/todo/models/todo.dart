@@ -9,9 +9,11 @@ class Todo {
   @HiveField(0)
   String title;
   @HiveField(1)
+  String subscription;
+  @HiveField(2)
   DateTime deadLine;
 
-  Todo(this.title, this.deadLine);
+  Todo(this.title, this.subscription, this.deadLine);
 
   String toStringDeadline() {
     initializeDateFormatting('ja');
