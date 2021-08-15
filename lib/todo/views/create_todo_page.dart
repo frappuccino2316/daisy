@@ -11,6 +11,7 @@ class CreateTodoPage extends StatefulWidget {
 
 class _CreateTodoPageState extends State<CreateTodoPage> {
   String _title = '';
+  String _description = '';
   DateTime _dateTime = DateTime.now();
 
   bool _isError = false;
@@ -47,6 +48,12 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                     labelText: 'Todoタイトル',
                   ),
                   onChanged: (String text) => _title = text),
+              TextField(
+                  decoration: const InputDecoration(
+                    labelText: '内容',
+                  ),
+                  onChanged: (String description) =>
+                      _description = description),
               Container(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
                 child: Row(
@@ -67,7 +74,8 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   if (_title == '') {
                     setState(() => _isError = true);
                   } else {
-                    Navigator.pop(context, Todo(_title, _dateTime));
+                    Navigator.pop(
+                        context, Todo(_title, _description, _dateTime));
                   }
                 },
               ),
