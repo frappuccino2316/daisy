@@ -21,6 +21,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
 
   bool _isError = false;
 
+  @override
   void initState() {
     super.initState();
     _title = widget.todo.title;
