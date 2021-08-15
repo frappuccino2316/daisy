@@ -41,7 +41,6 @@ class _TodoListPageState extends State<TodoListPage> {
                           icon: const Icon(Icons.delete),
                           color: Colors.red,
                           onPressed: () {
-                            // _deleteTodo(index);
                             _todoBox.deleteAt(index);
                             setState(() {});
                             Navigator.pop(context);
