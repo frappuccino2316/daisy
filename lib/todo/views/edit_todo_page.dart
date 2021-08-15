@@ -4,10 +4,11 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../models/todo.dart';
 
+@immutable
 class EditTodoPage extends StatefulWidget {
   final Todo todo;
 
-  EditTodoPage(this.todo);
+  const EditTodoPage(this.todo);
 
   @override
   _EditTodoPageState createState() => _EditTodoPageState();
@@ -19,6 +20,13 @@ class _EditTodoPageState extends State<EditTodoPage> {
   DateTime _dateTime = DateTime.now();
 
   bool _isError = false;
+
+  void initState() {
+    super.initState();
+    _title = widget.todo.title;
+    _description = widget.todo.description;
+    _dateTime = widget.todo.deadLine;
+  }
 
   void _pickDate(DateTime deadLine) async {
     final DateTime? selected = await showDatePicker(
@@ -76,7 +84,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
               ),
               if (_isError) const Text('全ての項目を設定してください'),
               ElevatedButton(
-                child: const Text('Add'),
+                child: const Text('更新'),
                 onPressed: () {
                   if (_title == '') {
                     setState(() => _isError = true);
