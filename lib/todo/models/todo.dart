@@ -5,15 +5,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'todo.g.dart';
 
 @HiveType(typeId: 1)
-class Todo {
+class Todo extends HiveObject {
   @HiveField(0)
   String title;
   @HiveField(1)
-  String subscription;
+  String description;
   @HiveField(2)
   DateTime deadLine;
 
-  Todo(this.title, this.subscription, this.deadLine);
+  Todo(this.title, this.description, this.deadLine);
 
   String toStringDeadline() {
     initializeDateFormatting('ja');
