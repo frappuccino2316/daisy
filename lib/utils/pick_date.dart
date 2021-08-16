@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-void pickDate(BuildContext context, setStateFunc, DateTime dateTimeState,
-    [DateTime? deadLine]) async {
+Future<DateTime?> pickDate(BuildContext context, [DateTime? deadLine]) async {
   DateTime initial;
   if (deadLine == null) {
     initial = DateTime.now();
@@ -15,9 +14,6 @@ void pickDate(BuildContext context, setStateFunc, DateTime dateTimeState,
     firstDate: DateTime(2021),
     lastDate: DateTime(2050),
   );
-  if (selected != null) {
-    setStateFunc(() {
-      dateTimeState = selected;
-    });
-  }
+
+  return selected;
 }
