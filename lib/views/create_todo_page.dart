@@ -37,7 +37,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   onChanged: (String text) => _title = text),
               TextField(
                   decoration: const InputDecoration(
-                    labelText: '内容',
+                    labelText: '詳細',
                   ),
                   onChanged: (String description) =>
                       _description = description),
@@ -63,7 +63,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
               ElevatedButton(
                 child: const Text('Add'),
                 onPressed: () {
-                  if (_title == '') {
+                  if (_title == '' || _description == '') {
                     setState(() => _isError = true);
                   } else {
                     Navigator.pop(

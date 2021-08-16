@@ -53,7 +53,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
                   controller:
                       TextEditingController(text: widget.todo.description),
                   decoration: const InputDecoration(
-                    labelText: '内容',
+                    labelText: '詳細',
                   ),
                   onChanged: (String description) =>
                       _description = description),
@@ -78,7 +78,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
               ElevatedButton(
                 child: const Text('更新'),
                 onPressed: () {
-                  if (_title == '') {
+                  if (_title == '' || _description == '') {
                     setState(() => _isError = true);
                   } else {
                     Navigator.pop(
