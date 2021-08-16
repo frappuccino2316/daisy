@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'todo/models/todo.dart';
-import 'todo/views/todo_list_page.dart';
+import 'models/todo.dart';
+import 'views/todo_list_page.dart';
 
 void main() async {
   await Hive.initFlutter();
