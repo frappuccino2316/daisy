@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:daisy/todo/models/todo.dart';
+import 'package:daisy/models/todo.dart';
 
 void main() {
   group('Todo', () {

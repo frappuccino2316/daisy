@@ -84,12 +84,12 @@ class _TodoListPageState extends State<TodoListPage> {
           });
         }
         break;
-
       case '削除':
-        () => showDialog(
+        showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: Text(_todoBox.values.toList()[index].title),
+                  content: Text(_todoBox.values.toList()[index].description),
                   actions: [
                     IconButton(
                       icon: const Icon(Icons.delete),

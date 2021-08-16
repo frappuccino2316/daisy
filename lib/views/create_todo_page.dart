@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../models/todo.dart';
+import '../utils/pick_date.dart';
 
 class CreateTodoPage extends StatefulWidget {
   @override
@@ -15,20 +16,6 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
   DateTime _dateTime = DateTime.now();
 
   bool _isError = false;
-
-  void _pickDate() async {
-    final DateTime? selected = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2021),
-      lastDate: DateTime(2050),
-    );
-    if (selected != null) {
-      setState(() {
-        _dateTime = selected;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +37,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   onChanged: (String text) => _title = text),
               TextField(
                   decoration: const InputDecoration(
-                    labelText: '内容',
+                    labelText: '詳細',
                   ),
                   onChanged: (String description) =>
                       _description = description),
@@ -62,7 +49,12 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                     Text(DateFormat.yMMMd('ja').format(_dateTime)),
                     ElevatedButton(
                       child: const Text('期限を選択'),
-                      onPressed: () => _pickDate(),
+                      onPressed: () async {
+                        final _selected = await pickDate(context);
+                        if (_selected != null) {
+                          setState(() => _dateTime = _selected);
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -71,7 +63,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
               ElevatedButton(
                 child: const Text('Add'),
                 onPressed: () {
-                  if (_title == '') {
+                  if (_title == '' || _description == '') {
                     setState(() => _isError = true);
                   } else {
                     Navigator.pop(
