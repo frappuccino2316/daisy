@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../models/todo.dart';
+import '../utils/pick_date.dart';
 
 @immutable
 class EditTodoPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class EditTodoPage extends StatefulWidget {
 class _EditTodoPageState extends State<EditTodoPage> {
   String _title = '';
   String _description = '';
-  DateTime _dateTime = DateTime.now();
+  DateTime _deadLine = DateTime.now();
 
   bool _isError = false;
 
@@ -26,21 +27,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
     super.initState();
     _title = widget.todo.title;
     _description = widget.todo.description;
-    _dateTime = widget.todo.deadLine;
-  }
-
-  void _pickDate(DateTime deadLine) async {
-    final DateTime? selected = await showDatePicker(
-      context: context,
-      initialDate: deadLine,
-      firstDate: DateTime(2021),
-      lastDate: DateTime(2050),
-    );
-    if (selected != null) {
-      setState(() {
-        _dateTime = selected;
-      });
-    }
+    _deadLine = widget.todo.deadLine;
   }
 
   @override
@@ -75,11 +62,15 @@ class _EditTodoPageState extends State<EditTodoPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(DateFormat.yMMMd('ja').format(_dateTime)),
+                    Text(DateFormat.yMMMd('ja').format(_deadLine)),
                     ElevatedButton(
-                      child: const Text('期限を選択'),
-                      onPressed: () => _pickDate(widget.todo.deadLine),
-                    ),
+                        child: const Text('期限を選択'),
+                        onPressed: () async {
+                          final _selected = await pickDate(context, _deadLine);
+                          if (_selected != null) {
+                            setState(() => _deadLine = _selected);
+                          }
+                        }),
                   ],
                 ),
               ),
@@ -91,7 +82,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
                     setState(() => _isError = true);
                   } else {
                     Navigator.pop(
-                        context, Todo(_title, _description, _dateTime));
+                        context, Todo(_title, _description, _deadLine));
                   }
                 },
               ),
