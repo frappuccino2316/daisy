@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/todo.dart';
+import '../../models/todo.dart';
 import 'create_todo_page.dart';
 import 'edit_todo_page.dart';
 
