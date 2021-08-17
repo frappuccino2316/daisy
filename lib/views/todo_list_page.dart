@@ -17,7 +17,11 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('やること'),
+        title: const Text(
+          'やること',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.lightBlue,
       ),
       body: ListView.builder(
         itemCount: _todoBox.values.toList().length,
