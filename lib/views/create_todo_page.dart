@@ -61,7 +61,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
               ),
               if (_isError) const Text('全ての項目を設定してください'),
               ElevatedButton(
-                child: const Text('Add'),
+                child: const Text('追加'),
                 onPressed: () {
                   if (_title == '' || _description == '') {
                     setState(() => _isError = true);
