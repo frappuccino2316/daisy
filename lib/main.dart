@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'models/todo.dart';
-import 'views/todo_list_page.dart';
+import 'views/page_list.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TodoListPage(),
+      home: const PageList(),
     );
   }
 }
