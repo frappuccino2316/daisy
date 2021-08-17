@@ -33,7 +33,7 @@ class _PageListState extends State<PageList> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.task),
-            label: 'Task',
+            label: 'Todo',
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
