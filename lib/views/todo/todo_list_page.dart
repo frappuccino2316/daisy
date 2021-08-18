@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/todo.dart';
+import '../../models/todo.dart';
 import 'create_todo_page.dart';
 import 'edit_todo_page.dart';
 
@@ -18,7 +18,7 @@ class _TodoListPageState extends State<TodoListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'やること',
+          'Todo',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.lightBlue,

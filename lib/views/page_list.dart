@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'todo_list_page.dart';
+import 'todo/todo_list_page.dart';
+import 'memo/memo_page.dart';
+import 'notification/notification_page.dart';
+import 'setting/setting_page.dart';
 
 class PageList extends StatefulWidget {
   const PageList({Key? key}) : super(key: key);
@@ -12,9 +15,9 @@ class PageList extends StatefulWidget {
 class _PageListState extends State<PageList> {
   final List<Widget> _pageList = <Widget>[
     TodoListPage(),
-    const Text('2ページ目'),
-    const Text('3ページ目'),
-    const Text('4ページ目'),
+    MemoPage(),
+    NotificationPage(),
+    SettingPage(),
   ];
 
   int _selectedIndex = 0;
@@ -33,7 +36,7 @@ class _PageListState extends State<PageList> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.task),
-            label: 'Task',
+            label: 'Todo',
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
