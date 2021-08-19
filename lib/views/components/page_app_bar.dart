@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PageAppBar extends StatelessWidget {
+class PageAppBar extends AppBar {
   final String _title;
 
   PageAppBar(this._title);
