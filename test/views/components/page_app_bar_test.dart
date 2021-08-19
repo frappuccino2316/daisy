@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 
-import 'package:daisy/views/components/page_app_bar.dart';
+import 'package:daisy/views/widgets/page_app_bar.dart';
 
 void main() {
   testWidgets('PageAppbar has an title text', (WidgetTester tester) async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/page_app_bar.dart';
+import '../widgets/page_app_bar.dart';
 
 class MemoPage extends StatefulWidget {
   @override

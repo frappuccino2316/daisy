@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/todo.dart';
-import '../components/page_app_bar.dart';
+import '../widgets/page_app_bar.dart';
 import 'create_todo_page.dart';
 import 'edit_todo_page.dart';
 
