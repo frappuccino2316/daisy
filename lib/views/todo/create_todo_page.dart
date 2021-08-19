@@ -4,6 +4,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../../models/todo.dart';
 import '../../utils/pick_date.dart';
+import '../widgets/page_app_bar.dart';
 
 class CreateTodoPage extends StatefulWidget {
   @override
@@ -21,9 +22,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
   Widget build(BuildContext context) {
     initializeDateFormatting();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('やること作成'),
-      ),
+      appBar: PageAppBar('タスク作成'),
       body: Container(
           padding: const EdgeInsets.all(40.0),
           child: Center(
