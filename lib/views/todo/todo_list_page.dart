@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/todo.dart';
+import '../components/page_app_bar.dart';
 import 'create_todo_page.dart';
 import 'edit_todo_page.dart';
 
@@ -16,13 +17,7 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Todo',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.lightBlue,
-      ),
+      appBar: PageAppBar('タスク'),
       body: ListView.builder(
         itemCount: _todoBox.values.toList().length,
         itemBuilder: (BuildContext context, int index) {
