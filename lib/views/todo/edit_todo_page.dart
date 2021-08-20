@@ -35,7 +35,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
   Widget build(BuildContext context) {
     initializeDateFormatting();
     return Scaffold(
-      appBar: PageAppBar('タスク編集'),
+      appBar: PageAppBar('編集'),
       body: Container(
           padding: const EdgeInsets.all(40.0),
           child: Center(
@@ -45,7 +45,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
               TextField(
                   controller: TextEditingController(text: widget.todo.title),
                   decoration: const InputDecoration(
-                    labelText: 'Todoタイトル',
+                    labelText: 'タイトル',
                   ),
                   onChanged: (String text) => _title = text),
               TextField(
