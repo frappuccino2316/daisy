@@ -17,7 +17,7 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PageAppBar('タスク'),
+      appBar: PageAppBar('やること'),
       body: ListView.builder(
         itemCount: _todoBox.values.toList().length,
         itemBuilder: (BuildContext context, int index) {
@@ -61,7 +61,7 @@ class _TodoListPageState extends State<TodoListPage> {
             setState(() {});
           }
         },
-        tooltip: 'Add Todo',
+        tooltip: '追加',
         child: const Icon(Icons.add),
       ),
     );

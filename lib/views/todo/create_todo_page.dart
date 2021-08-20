@@ -22,7 +22,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
   Widget build(BuildContext context) {
     initializeDateFormatting();
     return Scaffold(
-      appBar: PageAppBar('タスク作成'),
+      appBar: PageAppBar('作成'),
       body: Container(
           padding: const EdgeInsets.all(40.0),
           child: Center(
@@ -31,7 +31,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
             children: [
               TextField(
                   decoration: const InputDecoration(
-                    labelText: 'Todoタイトル',
+                    labelText: 'タイトル',
                   ),
                   onChanged: (String text) => _title = text),
               TextField(
