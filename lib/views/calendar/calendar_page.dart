@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../widgets/page_app_bar.dart';
 
@@ -15,6 +17,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return Scaffold(
       appBar: PageAppBar('カレンダー'),
       body: TableCalendar(
@@ -31,6 +34,22 @@ class _CalendarPageState extends State<CalendarPage> {
               _selectedDay = selectedDay;
               _focusedDay = focusedDay;
             });
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => SimpleDialog(
+                  title: Text(DateFormat.yMMMd('ja').format(_selectedDay!)),
+                  children: <Widget>[
+                    SimpleDialogOption(
+                      onPressed: () {},
+                      child: const Text('Test1'),
+                    ),
+                    SimpleDialogOption(
+                      onPressed: () {},
+                      child: const Text('Test2'),
+                    ),
+                  ]),
+            );
           }
         },
         onFormatChanged: (format) {
