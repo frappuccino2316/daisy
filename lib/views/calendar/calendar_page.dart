@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../widgets/page_app_bar.dart';
 
-class MemoPage extends StatefulWidget {
+class CalendarPage extends StatefulWidget {
   @override
-  _MemoPageState createState() => _MemoPageState();
+  _CalendarPageState createState() => _CalendarPageState();
 }
 
-class _MemoPageState extends State<MemoPage> {
+class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PageAppBar('メモ'),
       body: const Center(
-        child: Text('Memo'),
+        child: Text('Calendar'),
       ),
     );
   }
