@@ -40,8 +40,8 @@ class _PageListState extends State<PageList> {
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.memory),
-            label: 'Memo',
+            icon: Icon(Icons.calendar_view_month),
+            label: 'Calendar',
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
