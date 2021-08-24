@@ -10,7 +10,7 @@ void main() async {
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(CalendarEventAdapter());
   await Hive.openBox('todo');
-  // await Hive.openBox('calendar_event');
+  await Hive.openBox('calendar_event');
   runApp(MyApp());
 }
 
