@@ -12,13 +12,14 @@ class CalendarEventRepository {
     await box.add(calendarEvent);
   }
 
-  Future<List<CalendarEvent>> fetchAll() async {
+  Future<List<dynamic>> fetchAll() async {
     final box = await _calendarEventBox!.box;
     List<dynamic> list = box.values.toList();
-    List<CalendarEvent> calendarEventList = [];
-    for (var event in list) {
-      calendarEventList.add(event);
-    }
-    return calendarEventList;
+    return list;
+    // List<CalendarEvent> calendarEventList = [];
+    // for (var event in list) {
+    //   calendarEventList.add(event);
+    // }
+    // return calendarEventList;
   }
 }
