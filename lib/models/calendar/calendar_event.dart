@@ -49,15 +49,3 @@ class CalendarEvent extends HiveObject {
     return endingTime;
   }
 }
-
-class CalendarEventBox {
-  Future<Box> box = Hive.openBox<CalendarEvent>('calendar_event');
-
-  /// deleteFromDiskをした後はdatabaseが閉じてしまうため、もう一度開くための関数
-  Future<void> open() async {
-    Box b = await box;
-    if (!b.isOpen) {
-      box = Hive.openBox<CalendarEvent>('calendar_event');
-    }
-  }
-}
