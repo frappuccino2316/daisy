@@ -1,9 +1,11 @@
-import 'package:daisy/view_models/calendar/calendr_event_view_models.dart';
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'package:daisy/models/calendar/calendar_event.dart';
+import 'package:daisy/view_models/calendar/calendar_event_view_models.dart';
 import 'package:daisy/views/widgets/page_app_bar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -12,10 +14,18 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  // List<dynamic> events = CalendarEventViewModel().getCalendarEvents();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+
+  final _linkedHashMapevents = LinkedHashMap<DateTime, List<CalendarEvent>>(
+    equals: isSameDay,
+    hashCode: CalendarEventViewModel().getHashCode,
+  )..addAll(CalendarEventViewModel().getMapOfCalendarEvent());
+
+  List<CalendarEvent> _getEventsForDay(DateTime day) {
+    return _linkedHashMapevents[day] ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +38,7 @@ class _CalendarPageState extends State<CalendarPage> {
         focusedDay: _focusedDay,
         headerStyle: const HeaderStyle(formatButtonVisible: false),
         calendarFormat: _calendarFormat,
+        eventLoader: _getEventsForDay,
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
