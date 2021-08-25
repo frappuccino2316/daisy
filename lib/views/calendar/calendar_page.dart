@@ -55,6 +55,10 @@ class _CalendarPageState extends State<CalendarPage> {
               builder: (context) => CreateEventPage(),
               fullscreenDialog: true,
             ));
+            if (calendarEvent != null) {
+              CalendarEventViewModel().addCalendarEvent(calendarEvent);
+              setState(() {});
+            }
           }
         },
         onPageChanged: (focusedDay) {
