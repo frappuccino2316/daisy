@@ -38,7 +38,9 @@ class _CalendarPageState extends State<CalendarPage> {
         focusedDay: _focusedDay,
         headerStyle: const HeaderStyle(formatButtonVisible: false),
         calendarFormat: _calendarFormat,
-        eventLoader: _getEventsForDay,
+        eventLoader: (day) {
+          return _getEventsForDay(day);
+        },
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
