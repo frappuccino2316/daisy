@@ -21,31 +21,32 @@ class CalendarEvent extends HiveObject {
   CalendarEvent(
       this.title, this.detail, this.startDateTime, this.endingDateTime);
 
-  String toDateStartDateTime() {
-    initializeDateFormatting('ja');
-    DateFormat format = DateFormat.yMMMd('ja');
-    String startDate = format.format(startDateTime);
-    return startDate;
-  }
+  // 不要なので一旦コメントアウト
+  // String toDateStartDateTime() {
+  //   initializeDateFormatting('ja');
+  //   DateFormat format = DateFormat.yMMMd('ja');
+  //   String startDate = format.format(startDateTime);
+  //   return startDate;
+  // }
 
-  String toDateEndingDateTime() {
-    initializeDateFormatting('ja');
-    DateFormat format = DateFormat.yMMMd('ja');
-    String endingDate = format.format(endingDateTime);
-    return endingDate;
-  }
+  // String toDateEndingDateTime() {
+  //   initializeDateFormatting('ja');
+  //   DateFormat format = DateFormat.yMMMd('ja');
+  //   String endingDate = format.format(endingDateTime);
+  //   return endingDate;
+  // }
 
-  String toHourMinuteStartDateTime() {
-    initializeDateFormatting('ja');
-    DateFormat format = DateFormat.Hm('ja');
-    String startTime = format.format(startDateTime);
-    return startTime;
-  }
+  // String toHourMinuteStartDateTime() {
+  //   initializeDateFormatting('ja');
+  //   DateFormat format = DateFormat.Hm('ja');
+  //   String startTime = format.format(startDateTime);
+  //   return startTime;
+  // }
 
-  String toHourMinuteEndingDateTime() {
-    initializeDateFormatting('ja');
-    DateFormat format = DateFormat.Hm('ja');
-    String endingTime = format.format(endingDateTime);
-    return endingTime;
-  }
+  // String toHourMinuteEndingDateTime() {
+  //   initializeDateFormatting('ja');
+  //   DateFormat format = DateFormat.Hm('ja');
+  //   String endingTime = format.format(endingDateTime);
+  //   return endingTime;
+  // }
 }

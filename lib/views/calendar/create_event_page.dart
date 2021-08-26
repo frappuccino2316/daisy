@@ -42,31 +42,6 @@ class _CreateEventPage extends State<CreateEventPage> {
                     onChanged: (String detail) => _detail = detail),
                 Container(
                     padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
-                    // child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Text(DateFormat.yMMMd('ja').format(_startDateTime)),
-                    //     ElevatedButton(
-                    //       child: const Text('期限を選択'),
-                    //       onPressed: () async {
-                    //         final _selected = await pickDate(context);
-                    //         if (_selected != null) {
-                    //           setState(() => _startDateTime = _selected);
-                    //         }
-                    //       },
-                    //     ),
-                    //     Text(DateFormat.yMMMd('ja').format(_endingDateTime)),
-                    //     ElevatedButton(
-                    //       child: const Text('期限を選択'),
-                    //       onPressed: () async {
-                    //         final _selected = await pickDate(context);
-                    //         if (_selected != null) {
-                    //           setState(() => _endingDateTime = _selected);
-                    //         }
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
                     child: Column(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
