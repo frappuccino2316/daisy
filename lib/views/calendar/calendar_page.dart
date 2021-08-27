@@ -57,7 +57,7 @@ class _CalendarPageState extends State<CalendarPage> {
               } else {
                 final CalendarEvent? calendarEvent =
                     await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CreateEventPage(),
+                  builder: (context) => CreateEventPage(_selectedDay!),
                   fullscreenDialog: true,
                 ));
                 if (calendarEvent != null) {

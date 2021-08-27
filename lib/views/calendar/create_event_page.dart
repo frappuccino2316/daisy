@@ -7,6 +7,10 @@ import 'package:daisy/utils/pick_date.dart';
 import 'package:daisy/views/widgets/page_app_bar.dart';
 
 class CreateEventPage extends StatefulWidget {
+  final DateTime _selectedDay;
+
+  const CreateEventPage(this._selectedDay);
+
   @override
   _CreateEventPage createState() => _CreateEventPage();
 }
@@ -16,6 +20,13 @@ class _CreateEventPage extends State<CreateEventPage> {
   String _detail = '';
   DateTime _startDateTime = DateTime.now();
   DateTime _endingDateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _startDateTime = widget._selectedDay;
+    _endingDateTime = widget._selectedDay;
+  }
 
   bool _isError = false;
 
