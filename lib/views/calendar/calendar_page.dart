@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:daisy/models/calendar/calendar_event.dart';
 import 'package:daisy/view_models/calendar/calendar_event_view_models.dart';
 import 'package:daisy/views/calendar/create_event_page.dart';
+import 'package:daisy/views/calendar/edit_event_page.dart';
 import 'package:daisy/views/widgets/page_app_bar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -108,24 +109,23 @@ class _CalendarPageState extends State<CalendarPage> {
                               _getEventsForDay(_selectedDay!)[index].title),
                           subtitle: Text(
                               _getEventsForDay(_selectedDay!)[index].detail),
-                          // Todo POPupMenuButtonをコンポーネント化して別PRで作る
-                          // trailing: PopupMenuButton<String>(
-                          //   onSelected: (String selected) {
-                          //     popUpMenuSelected(selected, index);
-                          //   },
-                          //   itemBuilder: (BuildContext context) {
-                          //     return <PopupMenuEntry<String>>[
-                          //       const PopupMenuItem(
-                          //         child: Text('編集'),
-                          //         value: '編集',
-                          //       ),
-                          //       const PopupMenuItem(
-                          //         child: Text('削除'),
-                          //         value: '削除',
-                          //       ),
-                          //     ];
-                          //   },
-                          // ),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (String selected) {
+                              popUpMenuSelected(selected, _selectedDay!, index);
+                            },
+                            itemBuilder: (BuildContext context) {
+                              return <PopupMenuEntry<String>>[
+                                const PopupMenuItem(
+                                  child: Text('編集'),
+                                  value: '編集',
+                                ),
+                                const PopupMenuItem(
+                                  child: Text('削除'),
+                                  value: '削除',
+                                ),
+                              ];
+                            },
+                          ),
                         ),
                       ),
                     );
@@ -134,5 +134,48 @@ class _CalendarPageState extends State<CalendarPage> {
         ],
       ),
     );
+  }
+
+  void popUpMenuSelected(String selected, DateTime day, int index) async {
+    CalendarEvent _calendarEvent = _getEventsForDay(day)[index];
+
+    switch (selected) {
+      case '編集':
+        final CalendarEvent? calendarEvent = await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => EditEventPage(_calendarEvent)));
+        if (calendarEvent != null) {
+          setState(() {
+            calendarEvent.title = calendarEvent.title;
+            calendarEvent.detail = calendarEvent.detail;
+            calendarEvent.startDateTime = calendarEvent.startDateTime;
+            calendarEvent.endingDateTime = calendarEvent.endingDateTime;
+            calendarEvent.save();
+          });
+        }
+        break;
+      case '削除':
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text(_calendarEvent.title),
+                  content: Text(_calendarEvent.detail),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
+                      onPressed: () {
+                        CalendarEventViewModel().deleteCalendarEvent(index);
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ));
+        break;
+
+      default:
+        break;
+    }
   }
 }
