@@ -48,7 +48,7 @@ class _CreateEventPage extends State<CreateEventPage> {
                         children: [
                           Text(DateFormat.yMMMd('ja').format(_startDateTime)),
                           ElevatedButton(
-                            child: const Text('期限を選択'),
+                            child: const Text('開始日を選択'),
                             onPressed: () async {
                               final _selected = await pickDate(context);
                               if (_selected != null) {
@@ -63,7 +63,7 @@ class _CreateEventPage extends State<CreateEventPage> {
                         children: [
                           Text(DateFormat.yMMMd('ja').format(_endingDateTime)),
                           ElevatedButton(
-                            child: const Text('期限を選択'),
+                            child: const Text('終了日を選択'),
                             onPressed: () async {
                               final _selected = await pickDate(context);
                               if (_selected != null) {
