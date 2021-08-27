@@ -95,7 +95,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
           if (_selectedDay != null)
             SizedBox(
-              height: 200.0,
+              height: 385.0,
               child: ListView.builder(
                   itemCount: _getEventsForDay(_selectedDay!).length,
                   itemBuilder: (BuildContext context, int index) {
