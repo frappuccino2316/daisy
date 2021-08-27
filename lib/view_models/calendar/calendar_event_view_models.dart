@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:daisy/models/calendar/calendar_event.dart';
@@ -24,12 +25,17 @@ class CalendarEventViewModel {
     return map;
   }
 
-  void addCalendarEvent(CalendarEvent calendarEvent) {
-    _calendarEventBox.add(calendarEvent);
+  List<CalendarEvent> getEventsForDay(DateTime day,
+      LinkedHashMap<DateTime, List<CalendarEvent>> linkedHashMapEvents) {
+    return linkedHashMapEvents[day] ?? [];
   }
 
-  void deleteCalendarEvent(int index) {
-    _calendarEventBox.deleteAt(index);
+  void addCalendarEvent(CalendarEvent calendarEvent) async {
+    await _calendarEventBox.add(calendarEvent);
+  }
+
+  void deleteCalendarEvent(int index) async {
+    await _calendarEventBox.deleteAt(index);
   }
 
   int getHashCode(DateTime key) {
