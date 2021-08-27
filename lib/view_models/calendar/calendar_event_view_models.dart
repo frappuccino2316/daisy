@@ -28,6 +28,10 @@ class CalendarEventViewModel {
     _calendarEventBox.add(calendarEvent);
   }
 
+  void deleteCalendarEvent(int index) {
+    _calendarEventBox.deleteAt(index);
+  }
+
   int getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
   }
