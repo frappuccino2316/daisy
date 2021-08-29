@@ -45,6 +45,17 @@ class CalendarEventViewModel {
     await _calendarEventBox.add(calendarEvent);
   }
 
+  void editCalendarEvent(
+      DateTime day, int index, CalendarEvent calendarEvent) async {
+    Box<dynamic> _box = Hive.box('calendar_event');
+    CalendarEvent _eventInBox = getSelectedDayEventList(_box, day)[index];
+    _eventInBox.title = calendarEvent.title;
+    _eventInBox.detail = calendarEvent.detail;
+    _eventInBox.startDateTime = calendarEvent.startDateTime;
+    _eventInBox.endingDateTime = calendarEvent.endingDateTime;
+    _eventInBox.save();
+  }
+
   void deleteCalendarEvent(DateTime day, int index) async {
     Box<dynamic> _box = Hive.box('calendar_event');
     List<dynamic> _events = getSelectedDayEventList(_box, day);

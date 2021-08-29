@@ -152,13 +152,17 @@ class _CalendarPageState extends State<CalendarPage> {
         ));
         if (calendarEvent != null) {
           setState(() {
-            calendarEvent.title = calendarEvent.title;
-            calendarEvent.detail = calendarEvent.detail;
-            calendarEvent.startDateTime = calendarEvent.startDateTime;
-            calendarEvent.endingDateTime = calendarEvent.endingDateTime;
-            calendarEvent.save();
-            _eventListOfSelectedDay = _calendarEventViewModel.getEventsForDay(
-                _selectedDay!, _linkedHashMapEvents);
+            // calendarEvent.title = calendarEvent.title;
+            // calendarEvent.detail = calendarEvent.detail;
+            // calendarEvent.startDateTime = calendarEvent.startDateTime;
+            // calendarEvent.endingDateTime = calendarEvent.endingDateTime;
+            // calendarEvent.save();
+            _calendarEventViewModel.editCalendarEvent(
+                _selectedDay!, index, calendarEvent);
+            setState(() {
+              _eventListOfSelectedDay = _calendarEventViewModel.getEventsForDay(
+                  _selectedDay!, _linkedHashMapEvents);
+            });
           });
         }
         break;
