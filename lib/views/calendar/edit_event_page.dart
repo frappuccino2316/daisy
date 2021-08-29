@@ -6,35 +6,37 @@ import 'package:daisy/models/calendar/calendar_event.dart';
 import 'package:daisy/utils/pick_date.dart';
 import 'package:daisy/views/widgets/page_app_bar.dart';
 
-class CreateEventPage extends StatefulWidget {
-  final DateTime _selectedDay;
+class EditEventPage extends StatefulWidget {
+  final CalendarEvent calendarEvent;
 
-  const CreateEventPage(this._selectedDay);
+  const EditEventPage(this.calendarEvent);
 
   @override
-  _CreateEventPage createState() => _CreateEventPage();
+  _EditEventPage createState() => _EditEventPage();
 }
 
-class _CreateEventPage extends State<CreateEventPage> {
+class _EditEventPage extends State<EditEventPage> {
   String _title = '';
   String _detail = '';
   DateTime _startDateTime = DateTime.now();
   DateTime _endingDateTime = DateTime.now();
 
+  bool _isError = false;
+
   @override
   void initState() {
     super.initState();
-    _startDateTime = widget._selectedDay;
-    _endingDateTime = widget._selectedDay;
+    _title = widget.calendarEvent.title;
+    _detail = widget.calendarEvent.detail;
+    _startDateTime = widget.calendarEvent.startDateTime;
+    _endingDateTime = widget.calendarEvent.endingDateTime;
   }
-
-  bool _isError = false;
 
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
     return Scaffold(
-        appBar: PageAppBar('作成'),
+        appBar: PageAppBar('編集'),
         body: Container(
             padding: const EdgeInsets.all(40.0),
             child: Center(
@@ -42,11 +44,15 @@ class _CreateEventPage extends State<CreateEventPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                    controller:
+                        TextEditingController(text: widget.calendarEvent.title),
                     decoration: const InputDecoration(
                       labelText: 'タイトル',
                     ),
                     onChanged: (String text) => _title = text),
                 TextField(
+                    controller: TextEditingController(
+                        text: widget.calendarEvent.detail),
                     decoration: const InputDecoration(
                       labelText: '詳細',
                     ),
@@ -59,7 +65,7 @@ class _CreateEventPage extends State<CreateEventPage> {
                         children: [
                           Text(DateFormat.yMMMd('ja').format(_startDateTime)),
                           ElevatedButton(
-                            child: const Text('開始日を選択'),
+                            child: const Text('期限を選択'),
                             onPressed: () async {
                               final _selected = await pickDate(context);
                               if (_selected != null) {
@@ -74,7 +80,7 @@ class _CreateEventPage extends State<CreateEventPage> {
                         children: [
                           Text(DateFormat.yMMMd('ja').format(_endingDateTime)),
                           ElevatedButton(
-                            child: const Text('終了日を選択'),
+                            child: const Text('期限を選択'),
                             onPressed: () async {
                               final _selected = await pickDate(context);
                               if (_selected != null) {
@@ -87,7 +93,7 @@ class _CreateEventPage extends State<CreateEventPage> {
                     ])),
                 if (_isError) const Text('全ての項目を設定してください'),
                 ElevatedButton(
-                  child: const Text('追加'),
+                  child: const Text('更新'),
                   onPressed: () {
                     if (_title == '' || _detail == '') {
                       setState(() => _isError = true);
