@@ -44,11 +44,15 @@ class _EditEventPage extends State<EditEventPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                    controller:
+                        TextEditingController(text: widget.calendarEvent.title),
                     decoration: const InputDecoration(
                       labelText: 'タイトル',
                     ),
                     onChanged: (String text) => _title = text),
                 TextField(
+                    controller: TextEditingController(
+                        text: widget.calendarEvent.detail),
                     decoration: const InputDecoration(
                       labelText: '詳細',
                     ),
