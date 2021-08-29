@@ -25,6 +25,17 @@ class CalendarEventViewModel {
     return map;
   }
 
+  List<dynamic> getSelectedDayEventList(Box<dynamic> box, DateTime day) {
+    Box<dynamic> _box = box;
+    List<dynamic> _selectedDayEvent = [];
+
+    for (CalendarEvent event in _box.values) {
+      if (event.startDateTime == day) _selectedDayEvent.add(event);
+    }
+
+    return _selectedDayEvent;
+  }
+
   List<CalendarEvent> getEventsForDay(DateTime day,
       LinkedHashMap<DateTime, List<CalendarEvent>> linkedHashMapEvents) {
     return linkedHashMapEvents[day] ?? [];
@@ -34,8 +45,10 @@ class CalendarEventViewModel {
     await _calendarEventBox.add(calendarEvent);
   }
 
-  void deleteCalendarEvent(int index) async {
-    await _calendarEventBox.deleteAt(index);
+  void deleteCalendarEvent(DateTime day, int index) async {
+    Box<dynamic> _box = Hive.box('calendar_event');
+    List<dynamic> _events = getSelectedDayEventList(_box, day);
+    _events[index].delete();
   }
 
   int getHashCode(DateTime key) {
