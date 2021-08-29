@@ -19,15 +19,13 @@ class _CalendarPageState extends State<CalendarPage> {
   final CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  List<CalendarEvent> _eventListOfSelectedDay = [];
 
   final _linkedHashMapEvents = LinkedHashMap<DateTime, List<CalendarEvent>>(
     equals: isSameDay,
     hashCode: CalendarEventViewModel().getHashCode,
   )..addAll(CalendarEventViewModel().getMapOfCalendarEvent());
 
-  // List<CalendarEvent> _getEventsForDay(DateTime day) {
-  //   return _linkedHashMapEvents[day] ?? [];
-  // }
   final CalendarEventViewModel _calendarEventViewModel =
       CalendarEventViewModel();
 
@@ -39,6 +37,7 @@ class _CalendarPageState extends State<CalendarPage> {
       body: Column(
         children: [
           TableCalendar(
+            locale: 'ja_JP',
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2100, 12, 31),
             focusedDay: _focusedDay,
@@ -56,6 +55,8 @@ class _CalendarPageState extends State<CalendarPage> {
                 setState(() {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
+                  _eventListOfSelectedDay = _calendarEventViewModel
+                      .getEventsForDay(_selectedDay!, _linkedHashMapEvents);
                 });
               } else {
                 final CalendarEvent? calendarEvent =
@@ -65,7 +66,9 @@ class _CalendarPageState extends State<CalendarPage> {
                 ));
                 if (calendarEvent != null) {
                   CalendarEventViewModel().addCalendarEvent(calendarEvent);
-                  setState(() {});
+                  setState(() {
+                    _eventListOfSelectedDay.add(calendarEvent);
+                  });
                 }
               }
             },
@@ -100,9 +103,7 @@ class _CalendarPageState extends State<CalendarPage> {
             SizedBox(
               height: 385.0,
               child: ListView.builder(
-                  itemCount: _calendarEventViewModel
-                      .getEventsForDay(_selectedDay!, _linkedHashMapEvents)
-                      .length,
+                  itemCount: _eventListOfSelectedDay.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: Container(
@@ -110,18 +111,11 @@ class _CalendarPageState extends State<CalendarPage> {
                           border: Border.all(width: 1.0, color: Colors.black),
                         ),
                         child: ListTile(
-                          title: Text(_calendarEventViewModel
-                              .getEventsForDay(
-                                  _selectedDay!, _linkedHashMapEvents)[index]
-                              .title),
-                          subtitle: Text(_calendarEventViewModel
-                              .getEventsForDay(
-                                  _selectedDay!, _linkedHashMapEvents)[index]
-                              .detail),
+                          title: Text(_eventListOfSelectedDay[index].title),
+                          subtitle: Text(_eventListOfSelectedDay[index].detail),
                           trailing: PopupMenuButton<String>(
                             onSelected: (String selected) {
                               popUpMenuSelected(selected, _selectedDay!, index);
-                              setState(() {});
                             },
                             itemBuilder: (BuildContext context) {
                               return <PopupMenuEntry<String>>[
@@ -147,14 +141,15 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   void popUpMenuSelected(String selected, DateTime day, int index) async {
-    CalendarEvent _calendarEvent = _calendarEventViewModel.getEventsForDay(
-        day, _linkedHashMapEvents)[index];
+    CalendarEvent _calendarEvent = _eventListOfSelectedDay[index];
 
     switch (selected) {
       case '編集':
-        final CalendarEvent? calendarEvent = await Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => EditEventPage(_calendarEvent)));
+        final CalendarEvent? calendarEvent =
+            await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EditEventPage(_calendarEvent),
+          fullscreenDialog: true,
+        ));
         if (calendarEvent != null) {
           setState(() {
             calendarEvent.title = calendarEvent.title;
@@ -162,6 +157,8 @@ class _CalendarPageState extends State<CalendarPage> {
             calendarEvent.startDateTime = calendarEvent.startDateTime;
             calendarEvent.endingDateTime = calendarEvent.endingDateTime;
             calendarEvent.save();
+            _eventListOfSelectedDay = _calendarEventViewModel.getEventsForDay(
+                _selectedDay!, _linkedHashMapEvents);
           });
         }
         break;
@@ -178,7 +175,9 @@ class _CalendarPageState extends State<CalendarPage> {
                       onPressed: () {
                         CalendarEventViewModel()
                             .deleteCalendarEvent(_selectedDay!, index);
-                        setState(() {});
+                        setState(() {
+                          _eventListOfSelectedDay.removeAt(index);
+                        });
                         Navigator.pop(context);
                       },
                     ),
