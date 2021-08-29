@@ -20,14 +20,16 @@ class _CalendarPageState extends State<CalendarPage> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  final _linkedHashMapevents = LinkedHashMap<DateTime, List<CalendarEvent>>(
+  final _linkedHashMapEvents = LinkedHashMap<DateTime, List<CalendarEvent>>(
     equals: isSameDay,
     hashCode: CalendarEventViewModel().getHashCode,
   )..addAll(CalendarEventViewModel().getMapOfCalendarEvent());
 
-  List<CalendarEvent> _getEventsForDay(DateTime day) {
-    return _linkedHashMapevents[day] ?? [];
-  }
+  // List<CalendarEvent> _getEventsForDay(DateTime day) {
+  //   return _linkedHashMapEvents[day] ?? [];
+  // }
+  final CalendarEventViewModel _calendarEventViewModel =
+      CalendarEventViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,8 @@ class _CalendarPageState extends State<CalendarPage> {
             headerStyle: const HeaderStyle(formatButtonVisible: false),
             calendarFormat: _calendarFormat,
             eventLoader: (day) {
-              return _getEventsForDay(day);
+              return _calendarEventViewModel.getEventsForDay(
+                  day, _linkedHashMapEvents);
             },
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
@@ -97,7 +100,9 @@ class _CalendarPageState extends State<CalendarPage> {
             SizedBox(
               height: 385.0,
               child: ListView.builder(
-                  itemCount: _getEventsForDay(_selectedDay!).length,
+                  itemCount: _calendarEventViewModel
+                      .getEventsForDay(_selectedDay!, _linkedHashMapEvents)
+                      .length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: Container(
@@ -105,13 +110,18 @@ class _CalendarPageState extends State<CalendarPage> {
                           border: Border.all(width: 1.0, color: Colors.black),
                         ),
                         child: ListTile(
-                          title: Text(
-                              _getEventsForDay(_selectedDay!)[index].title),
-                          subtitle: Text(
-                              _getEventsForDay(_selectedDay!)[index].detail),
+                          title: Text(_calendarEventViewModel
+                              .getEventsForDay(
+                                  _selectedDay!, _linkedHashMapEvents)[index]
+                              .title),
+                          subtitle: Text(_calendarEventViewModel
+                              .getEventsForDay(
+                                  _selectedDay!, _linkedHashMapEvents)[index]
+                              .detail),
                           trailing: PopupMenuButton<String>(
                             onSelected: (String selected) {
                               popUpMenuSelected(selected, _selectedDay!, index);
+                              setState(() {});
                             },
                             itemBuilder: (BuildContext context) {
                               return <PopupMenuEntry<String>>[
@@ -137,7 +147,8 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   void popUpMenuSelected(String selected, DateTime day, int index) async {
-    CalendarEvent _calendarEvent = _getEventsForDay(day)[index];
+    CalendarEvent _calendarEvent = _calendarEventViewModel.getEventsForDay(
+        day, _linkedHashMapEvents)[index];
 
     switch (selected) {
       case '編集':
@@ -165,7 +176,8 @@ class _CalendarPageState extends State<CalendarPage> {
                       icon: const Icon(Icons.delete),
                       color: Colors.red,
                       onPressed: () {
-                        CalendarEventViewModel().deleteCalendarEvent(index);
+                        CalendarEventViewModel()
+                            .deleteCalendarEvent(_selectedDay!, index);
                         setState(() {});
                         Navigator.pop(context);
                       },
