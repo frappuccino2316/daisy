@@ -31,23 +31,30 @@ void main() async {
       await Hive.openBox('calendar_event');
       CalendarEventViewModel _viewModel = CalendarEventViewModel();
 
-      CalendarEvent _calendarEventFirst = CalendarEvent(
-          'test1',
-          'detail test 1',
-          DateTime.utc(1996, 2, 15),
-          DateTime.utc(1999, 8, 22));
-      _viewModel.addCalendarEvent(_calendarEventFirst);
+      CalendarEvent _calendarEvent = CalendarEvent('test1', 'detail test 1',
+          DateTime.utc(1996, 2, 15), DateTime.utc(1999, 8, 22));
+      _viewModel.addCalendarEvent(_calendarEvent);
 
-      List _calendarEventList = _viewModel.getAllCalendarEvents();
+      CalendarEvent _calendarEventFirst = _viewModel.getAllCalendarEvents()[0];
+      _calendarEventFirst.title = 'test2';
+      _calendarEventFirst.detail = 'detail test 2';
+      _calendarEventFirst.startDateTime = DateTime.utc(2000, 1, 1);
+      _calendarEventFirst.endingDateTime = DateTime.utc(2000, 12, 31);
+      _calendarEventFirst.save();
 
-      CalendarEvent _calendarEventSecond = CalendarEvent(
-          'test2',
-          'detail test 2',
-          DateTime.utc(1993, 8, 22),
-          DateTime.utc(1994, 3, 13));
-      _calendarEventList[0] = _calendarEventSecond;
+      // CalendarEvent _calendarEventSecond = CalendarEvent(
+      //     'test2',
+      //     'detail test 2',
+      //     DateTime.utc(1993, 8, 22),
+      //     DateTime.utc(1994, 3, 13));
+      // _calendarEventList[0] = _calendarEventSecond;
 
-      expect(_calendarEventList, [_calendarEventSecond]);
+      expect(_viewModel.getAllCalendarEvents()[0].title, 'test2');
+      expect(_viewModel.getAllCalendarEvents()[0].detail, 'detail test 2');
+      expect(_viewModel.getAllCalendarEvents()[0].startDateTime,
+          DateTime.utc(2000, 1, 1));
+      expect(_viewModel.getAllCalendarEvents()[0].endingDateTime,
+          DateTime.utc(2000, 12, 31));
     });
   });
 }
