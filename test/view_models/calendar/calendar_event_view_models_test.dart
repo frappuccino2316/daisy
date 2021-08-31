@@ -42,13 +42,6 @@ void main() async {
       _calendarEventFirst.endingDateTime = DateTime.utc(2000, 12, 31);
       _calendarEventFirst.save();
 
-      // CalendarEvent _calendarEventSecond = CalendarEvent(
-      //     'test2',
-      //     'detail test 2',
-      //     DateTime.utc(1993, 8, 22),
-      //     DateTime.utc(1994, 3, 13));
-      // _calendarEventList[0] = _calendarEventSecond;
-
       expect(_viewModel.getAllCalendarEvents()[0].title, 'test2');
       expect(_viewModel.getAllCalendarEvents()[0].detail, 'detail test 2');
       expect(_viewModel.getAllCalendarEvents()[0].startDateTime,
