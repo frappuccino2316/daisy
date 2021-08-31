@@ -47,6 +47,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     ];
                   },
                 ),
+                key: const Key('tile'),
               ),
             ),
           );
@@ -63,6 +64,7 @@ class _TodoListPageState extends State<TodoListPage> {
         },
         tooltip: '追加',
         child: const Icon(Icons.add),
+        key: const Key('add'),
       ),
     );
   }
