@@ -3,6 +3,5 @@ import 'package:daisy/main.dart' as app;
 
 void main() {
   enableFlutterDriverExtension();
-
   app.main();
 }
