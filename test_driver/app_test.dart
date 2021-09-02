@@ -4,19 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('daisy', () {
-    final TransitionAddButtonFinder = find.byValueKey('add');
+    final transitionAddButtonFinder = find.byValueKey('add');
     late FlutterDriver driver;
-
-    // setUp(() async {
-    //   driver = await FlutterDriver.connect();
-    //   await driver.waitUntilFirstFrameRasterized();
-
-    //   final health = await driver.checkHealth();
-    //   if (health.status == HealthStatus.bad) {
-    //     fail('Flutter Driver extension disabled');
-    //   }
-    //   await Directory('./test_driver/screenshots').create();
-    // });
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -29,17 +18,13 @@ void main() {
       await Directory('./test_driver/screenshots').create();
     });
 
-    // tearDown(() async {
-    //   driver.close();
-    // });
-
     tearDownAll(() async {
       driver.close();
     });
 
     test('Transition create Todo page', () async {
       await _screenshot(driver, 'TodoListPage.png');
-      await driver.tap(TransitionAddButtonFinder);
+      await driver.tap(transitionAddButtonFinder);
       await _screenshot(driver, 'CreateTodoPage0.png');
     });
 
