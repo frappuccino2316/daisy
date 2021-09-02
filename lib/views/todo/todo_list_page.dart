@@ -27,7 +27,10 @@ class _TodoListPageState extends State<TodoListPage> {
                 border: Border.all(width: 1.0, color: Colors.black),
               ),
               child: ListTile(
-                title: Text(_todoBox.values.toList()[index].title),
+                title: Text(
+                  _todoBox.values.toList()[index].title,
+                  key: const Key('todoTitle'),
+                ),
                 subtitle:
                     Text(_todoBox.values.toList()[index].toStringDeadline()),
                 trailing: PopupMenuButton<String>(
@@ -47,6 +50,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     ];
                   },
                 ),
+                key: const Key('tile'),
               ),
             ),
           );
@@ -63,6 +67,7 @@ class _TodoListPageState extends State<TodoListPage> {
         },
         tooltip: '追加',
         child: const Icon(Icons.add),
+        key: const Key('add'),
       ),
     );
   }
