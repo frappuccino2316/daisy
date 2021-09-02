@@ -30,11 +30,13 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                  key: const Key('titleTextField'),
                   decoration: const InputDecoration(
                     labelText: 'タイトル',
                   ),
                   onChanged: (String text) => _title = text),
               TextField(
+                  key: const Key('detailTextField'),
                   decoration: const InputDecoration(
                     labelText: '詳細',
                   ),
@@ -47,6 +49,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
                   children: [
                     Text(DateFormat.yMMMd('ja').format(_dateTime)),
                     ElevatedButton(
+                      key: const Key('deadlineButton'),
                       child: const Text('期限を選択'),
                       onPressed: () async {
                         final _selected = await pickDate(context);
@@ -60,6 +63,7 @@ class _CreateTodoPageState extends State<CreateTodoPage> {
               ),
               if (_isError) const Text('全ての項目を設定してください'),
               ElevatedButton(
+                key: const Key('addButton'),
                 child: const Text('追加'),
                 onPressed: () {
                   if (_title == '' || _description == '') {
