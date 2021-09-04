@@ -34,108 +34,112 @@ class _CalendarPageState extends State<CalendarPage> {
     initializeDateFormatting();
     return Scaffold(
       appBar: PageAppBar('カレンダー'),
-      body: Column(
-        children: [
-          TableCalendar(
-            locale: 'ja_JP',
-            firstDay: DateTime.utc(2020, 1, 1),
-            lastDay: DateTime.utc(2100, 12, 31),
-            focusedDay: _focusedDay,
-            headerStyle: const HeaderStyle(formatButtonVisible: false),
-            calendarFormat: _calendarFormat,
-            eventLoader: (day) {
-              return _calendarEventViewModel.getEventsForDay(
-                  day, _linkedHashMapEvents);
-            },
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) async {
-              if (!isSameDay(_selectedDay, selectedDay)) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                  _eventListOfSelectedDay = _calendarEventViewModel
-                      .getEventsForDay(_selectedDay!, _linkedHashMapEvents);
-                });
-              } else {
-                final CalendarEvent? calendarEvent =
-                    await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CreateEventPage(_selectedDay!),
-                  fullscreenDialog: true,
-                ));
-                if (calendarEvent != null) {
-                  CalendarEventViewModel().addCalendarEvent(calendarEvent);
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TableCalendar(
+              locale: 'ja_JP',
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2100, 12, 31),
+              focusedDay: _focusedDay,
+              headerStyle: const HeaderStyle(formatButtonVisible: false),
+              calendarFormat: _calendarFormat,
+              eventLoader: (day) {
+                return _calendarEventViewModel.getEventsForDay(
+                    day, _linkedHashMapEvents);
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) async {
+                if (!isSameDay(_selectedDay, selectedDay)) {
                   setState(() {
-                    _eventListOfSelectedDay.add(calendarEvent);
+                    _selectedDay = selectedDay;
+                    _focusedDay = focusedDay;
+                    _eventListOfSelectedDay = _calendarEventViewModel
+                        .getEventsForDay(_selectedDay!, _linkedHashMapEvents);
                   });
-                }
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-            calendarBuilders: CalendarBuilders(
-              dowBuilder: (context, day) {
-                if (day.weekday == DateTime.saturday) {
-                  final text = DateFormat.E().format(day);
-                  return Center(
-                    child: Text(
-                      text,
-                      style: const TextStyle(color: Colors.blue),
-                    ),
-                  );
-                }
-
-                if (day.weekday == DateTime.sunday) {
-                  final text = DateFormat.E().format(day);
-                  return Center(
-                    child: Text(
-                      text,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  );
+                } else {
+                  final CalendarEvent? calendarEvent =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CreateEventPage(_selectedDay!),
+                    fullscreenDialog: true,
+                  ));
+                  if (calendarEvent != null) {
+                    CalendarEventViewModel().addCalendarEvent(calendarEvent);
+                    setState(() {
+                      _eventListOfSelectedDay.add(calendarEvent);
+                    });
+                  }
                 }
               },
-            ),
-          ),
-          if (_selectedDay != null)
-            SizedBox(
-              height: 385.0,
-              child: ListView.builder(
-                  itemCount: _eventListOfSelectedDay.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1.0, color: Colors.black),
-                        ),
-                        child: ListTile(
-                          title: Text(_eventListOfSelectedDay[index].title),
-                          subtitle: Text(_eventListOfSelectedDay[index].detail),
-                          trailing: PopupMenuButton<String>(
-                            onSelected: (String selected) {
-                              popUpMenuSelected(selected, _selectedDay!, index);
-                            },
-                            itemBuilder: (BuildContext context) {
-                              return <PopupMenuEntry<String>>[
-                                const PopupMenuItem(
-                                  child: Text('編集'),
-                                  value: '編集',
-                                ),
-                                const PopupMenuItem(
-                                  child: Text('削除'),
-                                  value: '削除',
-                                ),
-                              ];
-                            },
-                          ),
-                        ),
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+              },
+              calendarBuilders: CalendarBuilders(
+                dowBuilder: (context, day) {
+                  if (day.weekday == DateTime.saturday) {
+                    final text = DateFormat.E().format(day);
+                    return Center(
+                      child: Text(
+                        text,
+                        style: const TextStyle(color: Colors.blue),
                       ),
                     );
-                  }),
-            )
-        ],
+                  }
+
+                  if (day.weekday == DateTime.sunday) {
+                    final text = DateFormat.E().format(day);
+                    return Center(
+                      child: Text(
+                        text,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+            if (_selectedDay != null)
+              SizedBox(
+                height: 385.0,
+                child: ListView.builder(
+                    itemCount: _eventListOfSelectedDay.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.0, color: Colors.black),
+                          ),
+                          child: ListTile(
+                            title: Text(_eventListOfSelectedDay[index].title),
+                            subtitle:
+                                Text(_eventListOfSelectedDay[index].detail),
+                            trailing: PopupMenuButton<String>(
+                              onSelected: (String selected) {
+                                popUpMenuSelected(
+                                    selected, _selectedDay!, index);
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <PopupMenuEntry<String>>[
+                                  const PopupMenuItem(
+                                    child: Text('編集'),
+                                    value: '編集',
+                                  ),
+                                  const PopupMenuItem(
+                                    child: Text('削除'),
+                                    value: '削除',
+                                  ),
+                                ];
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              )
+          ],
+        ),
       ),
     );
   }
