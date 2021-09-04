@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../models/todo/todo.dart';
+import 'package:daisy/view_models/todo/todo_view_models.dart';
 import '../widgets/page_app_bar.dart';
 import 'create_todo_page.dart';
 import 'edit_todo_page.dart';
@@ -12,14 +12,14 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final _todoBox = Hive.box('todo');
+  final TodoViewModel _todoViewModel = TodoViewModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PageAppBar('やること'),
       body: ListView.builder(
-        itemCount: _todoBox.values.toList().length,
+        itemCount: _todoViewModel.getAllTodo().length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: Container(
@@ -28,11 +28,11 @@ class _TodoListPageState extends State<TodoListPage> {
               ),
               child: ListTile(
                 title: Text(
-                  _todoBox.values.toList()[index].title,
+                  _todoViewModel.getAllTodo()[index].title,
                   key: const Key('todoTitle'),
                 ),
                 subtitle:
-                    Text(_todoBox.values.toList()[index].toStringDeadline()),
+                    Text(_todoViewModel.getAllTodo()[index].toStringDeadline()),
                 trailing: PopupMenuButton<String>(
                   onSelected: (String selected) {
                     popUpMenuSelected(selected, index);
@@ -61,7 +61,7 @@ class _TodoListPageState extends State<TodoListPage> {
           final Todo? todo = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => CreateTodoPage()));
           if (todo != null) {
-            _todoBox.add(todo);
+            _todoViewModel.addTodo(todo);
             setState(() {});
           }
         },
@@ -73,18 +73,14 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   void popUpMenuSelected(String selected, int index) async {
-    Todo _todoItem = _todoBox.values.toList()[index];
-
     switch (selected) {
       case '編集':
-        final Todo? todo = await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => EditTodoPage(_todoItem)));
+        final Todo? todo = await Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                EditTodoPage(_todoViewModel.getAllTodo()[index])));
         if (todo != null) {
           setState(() {
-            _todoItem.title = todo.title;
-            _todoItem.description = todo.description;
-            _todoItem.deadLine = todo.deadLine;
-            _todoItem.save();
+            _todoViewModel.editTodo(index, todo);
           });
         }
         break;
@@ -92,14 +88,14 @@ class _TodoListPageState extends State<TodoListPage> {
         showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-                  title: Text(_todoBox.values.toList()[index].title),
-                  content: Text(_todoBox.values.toList()[index].description),
+                  title: Text(_todoViewModel.getAllTodo()[index].title),
+                  content: Text(_todoViewModel.getAllTodo()[index].description),
                   actions: [
                     IconButton(
                       icon: const Icon(Icons.delete),
                       color: Colors.red,
                       onPressed: () {
-                        _todoBox.deleteAt(index);
+                        _todoViewModel.deleteTodo(index);
                         setState(() {});
                         Navigator.pop(context);
                       },
