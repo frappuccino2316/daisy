@@ -22,7 +22,7 @@ class TodoViewModel {
     _todoInBox.save();
   }
 
-  void deleteTodo(DateTime day, int index) async {
+  void deleteTodo(int index) async {
     getAllTodo()[index].delete();
   }
 }
