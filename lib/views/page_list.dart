@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'todo/todo_list_page.dart';
 import 'calendar/calendar_page.dart';
-import 'setting/setting_page.dart';
 
 class PageList extends StatefulWidget {
   const PageList({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class _PageListState extends State<PageList> {
   final List<Widget> _pageList = <Widget>[
     TodoListPage(),
     CalendarPage(),
-    SettingPage(),
   ];
 
   int _selectedIndex = 0;
