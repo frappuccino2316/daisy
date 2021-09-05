@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'todo/todo_list_page.dart';
 import 'calendar/calendar_page.dart';
-import 'notification/notification_page.dart';
 import 'setting/setting_page.dart';
 
 class PageList extends StatefulWidget {
@@ -16,7 +15,6 @@ class _PageListState extends State<PageList> {
   final List<Widget> _pageList = <Widget>[
     TodoListPage(),
     CalendarPage(),
-    NotificationPage(),
     SettingPage(),
   ];
 
