@@ -15,7 +15,7 @@ void main() async {
     });
 
     test('TodoViewModel can create in hive', () async {
-      await Hive.openBox('calendar_event');
+      await Hive.openBox('todo');
       TodoViewModel _viewModel = TodoViewModel();
 
       Todo _todo = Todo('test1', 'detail test 1', DateTime.utc(1996, 2, 15));
@@ -26,7 +26,7 @@ void main() async {
     });
 
     test('TodoViewModel can update in hive', () async {
-      await Hive.openBox('calendar_event');
+      await Hive.openBox('todo');
       TodoViewModel _viewModel = TodoViewModel();
 
       Todo _todo = Todo('test1', 'detail test 1', DateTime.utc(1996, 2, 15));
@@ -41,6 +41,17 @@ void main() async {
       expect(_viewModel.getAllTodo()[0].title, 'test2');
       expect(_viewModel.getAllTodo()[0].description, 'description test 2');
       expect(_viewModel.getAllTodo()[0].deadLine, DateTime.utc(2000, 1, 1));
+    });
+
+    test('TodoViewModel can delete todo in hive', () async {
+      await Hive.openBox('todo');
+      TodoViewModel _viewModel = TodoViewModel();
+
+      Todo _todo = Todo('test1', 'detail test 1', DateTime.utc(1996, 2, 15));
+      _viewModel.addTodo(_todo);
+
+      _viewModel.deleteTodo(0);
+      expect(_viewModel.getAllTodo(), []);
     });
   });
 }
